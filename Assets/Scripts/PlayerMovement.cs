@@ -11,12 +11,17 @@ public class PlayerMovement : MonoBehaviour
     Vector3 movementDelta;
     private float mouseStart;
     private Rigidbody rb;
+    private Animator animator;
+    private bool isDead = false;
+    private bool isFinish = false;
     private void Start()
     {
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
     }
     void Update()
     {
+        if (isDead || isFinish) return;
         movementDelta = Vector3.forward * forwardSpeed;
         if (Input.GetMouseButtonDown(0))
         {
@@ -39,6 +44,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isDead || isFinish) return;
         rb.MovePosition(rb.position + movementDelta * Time.fixedDeltaTime);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            // Dead
+            animator.SetTrigger("Death");
+            isDead = true;
+        }else if (collision.gameObject.CompareTag("Finish"))
+        {
+            animator.SetTrigger("Victory");
+            isFinish = true;
+        }
     }
 }
