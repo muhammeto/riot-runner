@@ -2,9 +2,9 @@
 using DG.Tweening;
 public class Obstacle : MonoBehaviour
 {
-    [SerializeField] private int maxHealth = 10;
+    [SerializeField] private float maxHealth = 10;
 
-    private int health = 3;
+    private float health = 3;
     private MeshRenderer meshRenderer;
 
     private void Start()
@@ -12,17 +12,14 @@ public class Obstacle : MonoBehaviour
         meshRenderer = GetComponent<MeshRenderer>();
         health = maxHealth;
     }
-    [ContextMenu("OnHit")]
-    public bool OnHit()
+    public bool OnHit(float gunDamage)
     {
-        health--;
+        health -= gunDamage;
         transform.DOPunchScale(Vector3.one * 0.95f, 0.4f, 0, 0);
-        meshRenderer.material.SetFloat("BlendAmount", (1f - ((float)health / maxHealth)));
-
-        if (health == 0)
+        meshRenderer.material.SetFloat("BlendAmount", 1f - (health / maxHealth));
+        if (health <= 0f)
         {
-            // Destroy
-            // cam shake
+            Destroy(gameObject);
             return true;
         }
         return false;
