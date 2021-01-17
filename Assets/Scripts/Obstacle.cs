@@ -22,7 +22,7 @@ public class Obstacle : MonoBehaviour
             GameObject destructed =  Instantiate(destructableVersion, transform.position, Quaternion.identity);
             foreach (Rigidbody rb in destructed.GetComponentsInChildren<Rigidbody>())
             {
-                Vector3 force = (rb.transform.position - transform.position).normalized * 200f;
+                Vector3 force = ((rb.transform.position - transform.position).normalized) * 300f + Random.onUnitSphere * 200f;
                 rb.AddForce(force);
             }
             Destroy(gameObject);

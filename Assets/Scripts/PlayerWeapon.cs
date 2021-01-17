@@ -39,8 +39,8 @@ public class PlayerWeapon : MonoBehaviour
                         isFound = true;
                         animator.SetBool("Firing", true);
                     }
-                    bool didDestroyed = obstacle.OnHit(gunDamage);
-                    if(didDestroyed && isFound)
+                    bool didDestroy = obstacle.OnHit(gunDamage);
+                    if(didDestroy && isFound)
                     {
                         isFound = false;
                         animator.SetBool("Firing", false);

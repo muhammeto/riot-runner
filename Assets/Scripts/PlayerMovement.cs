@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -57,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
             isDead = true;
         }else if (collision.gameObject.CompareTag("Finish"))
         {
+            transform.DORotate(Vector3.up * 180f, 0.3f);
             animator.SetTrigger("Victory");
             isFinish = true;
         }
