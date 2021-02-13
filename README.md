@@ -2,4 +2,4 @@
 Yet another hypercasual game prototype.
 
 ## Gameplay
-![](ShortGameplay.gif)
+![Gameplay](ShortGameplay.webp)
